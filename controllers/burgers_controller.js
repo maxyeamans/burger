@@ -8,8 +8,8 @@ router.get("/", (req, res) => {
         const handlebarObj = {
             burgers: data
         };
-        console.log("This burger's info:", handlebarObj);
-        res.render(handlebarObj);
+        console.log("Incoming data for burgers:", handlebarObj);
+        res.render("index", handlebarObj);
     });
 });
 
