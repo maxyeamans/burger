@@ -13,8 +13,11 @@ router.get("/", (req, res) => {
     });
 });
 
+// TODO: Verify that this works
 router.post("/api/burgers", (req, res) => {
-    burger.create(/* TODO: fill this in when views are completed */);
+    burger.create( "burger_name", req.body.name, result => {
+        res.json({ id: result.insertID });
+    });
 });
 
 router.put("/api/burgers/:id", (req, res) => {
