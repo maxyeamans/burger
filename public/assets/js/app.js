@@ -30,6 +30,7 @@ $( function () {
         $.ajax("/api/burgers/" + thisID, {
             type: "PUT"
         }).then( function(){
+            // TODO: investigate why this doesn't auto-reload the page
             location.reload();
         });
     });
