@@ -5,7 +5,7 @@ const connection = require("./connection.js");
 // In order to write the query, we need 3 question marks.
 // The above helper function loops through and creates an array of question marks - ["?", "?", "?"] - and turns it into a string.
 // ["?", "?", "?"].toString() => "?,?,?";
-function printQuestionMarks(num) {
+/* function printQuestionMarks(num) {
     var arr = [];
     // 
     for (var i = 0; i < num; i++) {
@@ -13,7 +13,7 @@ function printQuestionMarks(num) {
     }
 
     return arr.toString();
-};
+}; */
 
 function objToSql(ob) {
     var arr = [];
@@ -42,6 +42,7 @@ const orm = {
     selectAll: (tableInput, cb) => {
         // Query: SELECT * FROM burgers;
         const queryString = "SELECT * FROM " + tableInput;
+        console.log("Get query string:", queryString)
         connection.query(queryString, (err, result) => {
             if (err) {
                 throw err
@@ -50,15 +51,14 @@ const orm = {
             cb(result);
         });
     },
-    insertOne: (table, cols, vals, cb) => {
+    insertOne: (table, col, val, cb) => {
         // Query: INSERT INTO burgers (burger_name) VALUES ([burger name goes here])
-        const queryString = "INSERT INTO " + table + " (" +
-            cols.toString + ") VALUES (" +
-            printQuestionMarks(vals.length) + ")";
+        const queryString = "INSERT INTO " + table + " (" + col + ") VALUES ('" + val + "');";
 
+        console.log("value:", val);
         console.log("The query string for creating this burger:", queryString);
 
-        connection.query(queryString, vals, (err, result) => {
+        connection.query(queryString, (err, result) => {
             if (err) {
                 throw err
             };
@@ -68,9 +68,9 @@ const orm = {
     },
     updateOne: (table, objColVals, condition, cb) => {
         // 
-        const queryString = "UPDATE " + table + 
-                            " SET " + objToSql(objColVals) + 
-                            " WHERE " + condition;
+        const queryString = "UPDATE " + table +
+            " SET " + objToSql(objColVals) +
+            " WHERE " + condition + ";";
 
         console.log("The query string for updating this burger:", queryString);
 

@@ -13,17 +13,27 @@ router.get("/", (req, res) => {
     });
 });
 
+// Adding this as an easy way to get all of the burgers
+router.get("/api/burgers", (req, res) => {
+    burger.all( results => {
+        res.json(results);
+    });
+});
+
 // TODO: Verify that this works
 router.post("/api/burgers", (req, res) => {
-    burger.create( "burger_name", req.body.name, result => {
-        res.json({ id: result.insertID });
+    burger.create( req.body.name, result => {
+        console.log("POST response:", result.insertID);
+        res.json( {id: result.insertID} );
     });
 });
 
 router.put("/api/burgers/:id", (req, res) => {
-    const burgerID = req.params.id;
+    const condition = "id=" + req.params.id;
 
-    burger.update(/* TODO: fill this in when views are completed */)
+    burger.update( { devoured : true }, condition, result => {
+        console.log("You just ate a burger.");
+    });
 });
 
 module.exports = router;
