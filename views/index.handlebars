@@ -5,14 +5,38 @@
 </header>
 
 <div class="container">
-    <h2>Look at all these burgers I mean really</h2>
-    <ul>
-        {{#each burgers}}
-        <li>
-            {{burger_name}}
-        </li>
-        {{/each}}
-    </ul>
+    <form id="input-form">
+        <input id="new-burger" type="text" placeholder="Add a burger!">
+        <button id="add-burger" class="btn btn-danger mx-3" type="submit">Add a burger!</button>
+    </form>
+    <div class="row">
+        <div class="col col-md-6" id="burgers-to-eat">
+            <h2>Eat da burger</h2>
+            <ul>
+                {{#each burgers}}
+                    {{#unless devoured}}
+                        <li class="my-2">
+                            {{burger_name}} <button class="btn btn-sm btn-default eat-da-burger" data-id="{{id}}"> Eat it!</button>
+                        </li>
+                    {{/unless}}
+                {{/each}}
+            </ul>
+        </div>
+        <div class="col col-md-6" id="burgers-eaten">
+            <h2>Burgers done eaten</h2>
+            <ul>
+                {{#each burgers}}
+                    {{#if devoured}}
+                        <li class="my-2">
+                            Name: {{burger_name}}
+                            <br>
+                            Status: <em>DEVOURED</em>
+                        </li>
+                    {{/if}}
+                {{/each}}
+            </ul>
+        </div>
+    </div>
 </div>
 <footer>
 

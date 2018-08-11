@@ -13,14 +13,20 @@ router.get("/", (req, res) => {
     });
 });
 
-// Adding this as an easy way to get all of the burgers
+/*  Added this as an easy way to get all of the burgers for testing.
+    This isn't actually used by the front end. */
 router.get("/api/burgers", (req, res) => {
     burger.all( results => {
         res.json(results);
     });
 });
 
-// TODO: Verify that this works
+/* 
+    The request for this API route should contain an object with a single key/value:
+    {
+        "burger_name": [burger name goes here]
+    }
+*/
 router.post("/api/burgers", (req, res) => {
     burger.create( req.body.name, result => {
         console.log("POST response:", result.insertID);
